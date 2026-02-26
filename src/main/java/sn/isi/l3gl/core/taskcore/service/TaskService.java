@@ -6,6 +6,8 @@ import sn.isi.l3gl.core.taskcore.domain.Task;
 import sn.isi.l3gl.core.taskcore.domain.TaskStatus;
 import sn.isi.l3gl.core.taskcore.repository.TaskRepository;
 
+import java.util.List;
+
 @Service
 public class TaskService {
 
@@ -19,5 +21,10 @@ public class TaskService {
     public Task createTask(String title, String description) {
         Task task = new Task(title, description, TaskStatus.TODO);
         return taskRepository.save(task);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Task> listTasks() {
+        return taskRepository.findAll();
     }
 }
