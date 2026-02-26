@@ -27,4 +27,13 @@ public class TaskService {
     public List<Task> listTasks() {
         return taskRepository.findAll();
     }
+
+    @Transactional
+    public Task updateStatus(Long taskId, TaskStatus status) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found: " + taskId));
+
+        task.setStatus(status);
+        return taskRepository.save(task);
+    }
 }
