@@ -36,4 +36,9 @@ public class TaskService {
         task.setStatus(status);
         return taskRepository.save(task);
     }
+
+    @Transactional(readOnly = true)
+    public long countCompletedTasks() {
+        return taskRepository.countByStatus(TaskStatus.DONE);
+    }
 }
